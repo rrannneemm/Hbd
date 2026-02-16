@@ -16,6 +16,7 @@ overflow:hidden;
 font-family:Arial;
 }
 
+/* الكرت */
 .card{
 width:480px;
 height:320px;
@@ -29,6 +30,7 @@ box-shadow:0 20px 40px rgba(0,0,0,.2);
 padding:20px;
 }
 
+/* النص */
 .text{
 color:#c2185b;
 font-size:42px;
@@ -38,6 +40,7 @@ margin-top:20px;
 text-align:center;
 }
 
+/* الكيكة */
 .cake{
 position:relative;
 width:140px;
@@ -79,6 +82,7 @@ from{transform:scale(1);}
 to{transform:scale(1.2) translateY(-2px);}
 }
 
+/* كونفيتي */
 .confetti{
 position:absolute;
 width:6px;
@@ -91,6 +95,41 @@ animation:fall linear infinite;
 @keyframes fall{
 from{transform:translateY(-200px);}
 to{transform:translateY(400px);}
+}
+
+/* قلوب تطلع */
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:18px;
+animation:floatUp 4s linear forwards;
+pointer-events:none;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0) scale(1);opacity:1}
+100%{transform:translateY(-110vh) scale(1.8);opacity:0}
+}
+
+/* الرسالة */
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:white;
+padding:20px 30px;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,.25);
+font-size:20px;
+color:#e91e63;
+transition:.4s;
+z-index:1000;
+text-align:center;
+}
+
+.popup.show{
+transform:translate(-50%,-50%) scale(1);
 }
 </style>
 </head>
@@ -108,9 +147,15 @@ to{transform:translateY(400px);}
 <div class="text" id="msg">Happy Birthday!</div>
 </div>
 
-<script>
-document.getElementById("msg").innerText="Happy Birthday Hisham 💗💗";
+<div class="popup" id="popup">
+You deserve a day as beautiful as your heart 💗<br>
+I hope this year brings you happiness you never expected ✨
+</div>
 
+<script>
+document.getElementById("msg").innerText="Happy Birthday hisham 💗💗";
+
+/* كونفيتي */
 for(let i=0;i<40;i++){
 let c=document.createElement("div");
 c.className="confetti";
@@ -118,6 +163,21 @@ c.style.left=Math.random()*100+"%";
 c.style.animationDuration=(Math.random()*3+2)+"s";
 document.body.appendChild(c);
 }
+
+/* قلوب مستمرة */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
+h.style.left=Math.random()*100+"%";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+},500);
+
+/* رسالة بعد ثانيتين */
+setTimeout(()=>{
+document.getElementById("popup").classList.add("show");
+},2000);
 </script>
 
 </body>
